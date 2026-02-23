@@ -56,5 +56,3 @@ async def fetch_mercadolivre_deals(config: dict[str, Any]) -> list[DealInput]:
                     )
                 )
     return deals
-backend/utils.py
-backend/utils.py
