@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
@@ -7,6 +8,7 @@ from pathlib import Path
 from .config import settings
 
 
+logger = logging.getLogger("smartdeals.db")
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS app_config (
     id INTEGER PRIMARY KEY CHECK (id = 1),
@@ -79,10 +81,12 @@ CREATE TABLE IF NOT EXISTS scan_runs (
 
 
 def init_db() -> None:
-    Path(settings.db_path).parent.mkdir(parents=True, exist_ok=True)
+    db_dir = Path(settings.db_path).parent
+    db_dir.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(settings.db_path) as conn:
         conn.executescript(SCHEMA_SQL)
         conn.commit()
+    logger.info("DB init ok: %s", settings.db_path)
 
 
 @contextmanager
