@@ -19,6 +19,41 @@ Bot local com FastAPI + React para coletar ofertas de Mercado Livre/Amazon, pont
    - usuário: `admin`
    - senha: `admin123`
 
+
+## Troubleshooting (Windows)
+
+Se aparecer erro parecido com:
+
+```text
+unable to get image 'divulgador-inteligente-frontend': error during connect:
+open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.
+```
+
+isso normalmente significa que o daemon do Docker Desktop (engine Linux) **não está rodando**.
+
+Passos para resolver:
+
+1. Abra o **Docker Desktop** e aguarde status `Engine running`.
+2. No Docker Desktop, confirme que está em **Linux containers** (não Windows containers).
+3. No PowerShell/CMD, valide:
+   ```bash
+   docker version
+   docker info
+   ```
+   Se esses comandos falharem no bloco `Server`, o daemon ainda não subiu.
+4. Tente novamente na raiz do projeto:
+   ```bash
+   docker compose up --build
+   ```
+5. Se persistir, reinicie o Docker Desktop e rode:
+   ```bash
+   docker context ls
+   docker context use default
+   ```
+
+Se você usa WSL2, confira também se a integração da distro está habilitada em:
+`Settings > Resources > WSL integration`.
+
 ## Checklist rápido de persistência SQLite
 
 - O caminho padrão do banco é `data/smartdeals.db` (container resolve para `/app/data/smartdeals.db`).
