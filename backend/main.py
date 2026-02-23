@@ -233,6 +233,7 @@ async def publish_deal(conn, deal: dict, cfg: dict) -> dict:
 async def startup_event():
     init_db()
     get_config()
+    logger.info("Tables/config ensured")
     start_scheduler(collect_and_process)
 
 

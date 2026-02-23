@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: backend/Dockerfile.backend
     env_file:
       - .env
     volumes:
@@ -13,7 +13,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: frontend/Dockerfile.frontend
       args:
         VITE_API_URL: http://localhost:8000
     depends_on:
